@@ -1,0 +1,10 @@
+openai
+python-dotenv
+pandas
+aiohttp
+pydantic
+tqdm
+python-dateutil
+requests
+streamlit
+yfinance

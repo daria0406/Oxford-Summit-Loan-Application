@@ -1,0 +1,97 @@
+{
+    "affordability_thresholds": [
+        {
+            "max_ratio": 0.25,
+            "label": "✅ Good affordability",
+            "level": "approve"
+        },
+        {
+            "max_ratio": 0.4,
+            "label": "⚠️ Moderate affordability",
+            "level": "review"
+        },
+        {
+            "max_ratio": 1.0,
+            "label": "❌ Low affordability score",
+            "level": "reject"
+        }
+    ],
+    "sla_thresholds": {
+        "KYC": 60,
+        "CreditCheck": 45,
+        "FinalApproval": 30
+    },
+    "explanation_templates": {
+        "low_affordability": "Income to debt ratio exceeds safe threshold.",
+        "sla_violation": "At least one process exceeded SLA limit.",
+        "fraud_flagged": "System detected known fraud indicator.",
+        "clean": "No issues detected; eligible for fast-track approval."
+    },
+    "recommendation_matrix": [
+        {
+            "affordability": "reject",
+            "fraud": true,
+            "sla_violation": true,
+            "decision": "❌ Hard reject"
+        },
+        {
+            "affordability": "reject",
+            "fraud": false,
+            "sla_violation": true,
+            "decision": "❌ Reject due to affordability and delay"
+        },
+        {
+            "affordability": "reject",
+            "fraud": false,
+            "sla_violation": false,
+            "decision": "❌ Reject due to affordability alone"
+        },
+        {
+            "affordability": "review",
+            "fraud": true,
+            "sla_violation": true,
+            "decision": "⚠️ Review: fraud and delay"
+        },
+        {
+            "affordability": "review",
+            "fraud": false,
+            "sla_violation": true,
+            "decision": "⚠️ Manual review recommended"
+        },
+        {
+            "affordability": "review",
+            "fraud": true,
+            "sla_violation": false,
+            "decision": "⚠️ Review: possible fraud risk"
+        },
+        {
+            "affordability": "approve",
+            "fraud": false,
+            "sla_violation": false,
+            "decision": "✅ Auto-approved"
+        },
+        {
+            "affordability": "approve",
+            "fraud": true,
+            "sla_violation": false,
+            "decision": "⚠️ Review: fraud flagged despite affordability"
+        }
+    ],
+    "interest_rate_thresholds": [
+        {
+            "max_rate": 5.0,
+            "label": "Excellent",
+            "level": "approve"
+        },
+        {
+            "max_rate": 8.0,
+            "label": "Good",
+            "level": "review"
+        },
+        {
+            "max_rate": 12.0,
+            "label": "Acceptable",
+            "level": "review"
+        }
+    ]
+}
