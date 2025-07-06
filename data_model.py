@@ -17,12 +17,8 @@ class LoanApplicationJourney:
 
 @dataclass
 class TrendAnalysisResult:
-    application_id: str
-    sla_result: str
-    fraud_result: str
-    recommendation: str
-    explanation: str
-    timestamp: str
-    affordability_result: Optional[str] = None
-    affordability_level: Optional[str] = None
-    final_decision: Optional[str] = None
+    average_processing_time: float
+    average_requested_amount: float
+    ratio_costs_to_income: float
+    analysis_summary: str
+    

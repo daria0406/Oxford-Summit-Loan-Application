@@ -1,4 +1,5 @@
 openai
+openai-agents
 python-dotenv
 pandas
 aiohttp

@@ -4,11 +4,12 @@ from agents import Agent, function_tool, RunContextWrapper
 def synthesize_report(wrapper: RunContextWrapper[dict]) -> str:
     context = wrapper.context
     return f"""📋 Loan Application System Summary
-Dear {context.get('to', 'Daria Zahaleanu')},
-Recommendation: {context.get('recommendation', 'No recommendation')}
-Fraud Result: {context.get('fraud_result')}
-SLA Result: {context.get('sla_result')}
-Interest Rate Result: {context.get('interest_rate_result')}
+    
+This report summarizes the analysis of the loan application system.
+Average_processing_time: {context.get('average_processing_time', 'N/A')}
+Average Requested Amount: {context.get('average_requested_amount', 'N/A')}
+Ratio of Costs to Income: {context.get('ratio_costs_to_income', 'N/A')}
+Analysis Summary: {context.get('analysis_summary', 'N/A')}
 
 Regards,
 Team 5 - Loan Application Agent
