@@ -14,9 +14,15 @@ class ModelSettings:
     temperature: float = 0.0
     max_tokens: Optional[int] = None
 
+@dataclass
 class RunContextWrapper(Generic[T]):
     def __init__(self, context: T):
         self.context = context
+
+@dataclass
+class AgentOutputSchema(Generic[T]):
+    final_output: Any
+    context: Optional[T] = None
 
 def function_tool(strict_mode: bool = True):
     """Decorator to mark a function as a tool"""
@@ -30,6 +36,16 @@ def function_tool(strict_mode: bool = True):
         wrapped._original_func = func  # Store the original function
         return wrapped
     return decorator
+
+class CodeInterpreterTool:
+    def __init__(self, tool_config: dict):
+        self.tool_config = tool_config
+
+    @function_tool(strict_mode=True)
+    def __call__(self, ctx=None, config: Any = None) -> str:
+        # Placeholder behavior for code execution
+        # You could add actual code execution logic here if needed
+        return f"[CodeInterpreter executed with config: {config}]"
 
 class Agent(Generic[T]):
     def __init__(
@@ -73,3 +89,14 @@ class Agent(Generic[T]):
 
         # Return a compatible mock object with .final_output
         return type('Response', (), {'final_output': result})()
+    
+
+
+class Runner:
+    @staticmethod
+    async def run(agent, input: str, context: Any = None) -> AgentOutputSchema:
+        try:
+            result = await agent.run(input=input, context=context)
+            return AgentOutputSchema(final_output=result.final_output)
+        except Exception as e:
+            return AgentOutputSchema(final_output=f"[Error: {str(e)}]")
